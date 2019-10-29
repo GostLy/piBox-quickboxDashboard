@@ -77,7 +77,7 @@ if (file_exists('/install/.quota.lock')) {
     exit();
   }
   //hard disk
-  $mntPath  = mysql_escape_mimic($_GET["mntPath"]);
+  $mntPath  = mysql_escape_mimic($_GET['mntPath']);
   echo "mntPath: ".$mntPath;
   $dftotal  = number_format(round(@disk_total_space($mntPath)/(1024*1024*1024),3)); //Total
   $dffree   = number_format(round(@disk_free_space($mntPath)/(1024*1024*1024),3)); //Available
