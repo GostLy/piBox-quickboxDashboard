@@ -3,16 +3,6 @@ include ("/srv/panel/inc/util.php");
 include ($_SERVER['DOCUMENT_ROOT'].'/widgets/class.php');
 require_once ($_SERVER['DOCUMENT_ROOT'].'/inc/localize.php');
 
-function mysql_escape_mimic($inp) {
-  if(is_array($inp))
-      return array_map(__METHOD__, $inp);
-
-  if(!empty($inp) && is_string($inp)) {
-      return str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), $inp);
-  }
-
-  return $inp;
-}
 
 $username = getUser();
 function processExists($processName, $username) {
@@ -77,7 +67,19 @@ if (file_exists('/install/.quota.lock')) {
     exit();
   }
   //hard disk
-  $mntPath  = mysql_escape_mimic($_GET['mntPath']);
+  $mntPathFile  = "/srv/panel/inc/diskStatus.cfg";
+  if (file_exists($mntPathFile)) {
+    $fc = 0;
+    $fh = fopen($mntPathFile,'r');
+    while ($line = fgets($fh)) {
+      $expLine  = explode("=", $line);
+      if ($expLine["$fc"] == "mntDevicePath") {
+        $mntPath  = $expLine["".($fc+1).""]
+      }
+      $fc++;
+    }
+    fclose($fh);
+  }
   echo "mntPath: ".$mntPath;
   $dftotal  = number_format(round(@disk_total_space($mntPath)/(1024*1024*1024),3)); //Total
   $dffree   = number_format(round(@disk_free_space($mntPath)/(1024*1024*1024),3)); //Available
