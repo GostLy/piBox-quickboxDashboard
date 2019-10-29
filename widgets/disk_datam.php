@@ -66,9 +66,12 @@ if (file_exists('/install/.quota.lock')) {
     exit();
   }
   //hard disk
-  $dftotal = number_format(round(@disk_total_space("/mnt/piStorage")/(1024*1024*1024),3)); //Total
-  $dffree = number_format(round(@disk_free_space("/mnt/piStorage")/(1024*1024*1024),3)); //Available
-  $dfused = number_format(round(@disk_total_space("/mnt/piStorage")/(1024*1024*1024),3)-round(@disk_free_space("/mnt/piStorage")/(1024*1024*1024),3)); //used
+  //$dftotal = number_format(round(@disk_total_space("/mnt/piStorage")/(1024*1024*1024),3)); //Total
+  //$dffree = number_format(round(@disk_free_space("/mnt/piStorage")/(1024*1024*1024),3)); //Available
+  //$dfused = number_format(round(@disk_total_space("/mnt/piStorage")/(1024*1024*1024),3)-round(@disk_free_space("/mnt/piStorage")/(1024*1024*1024),3)); //used
+  $dftotal  = @disk_total_space("/mnt/piStorage");
+  $dffree   = @disk_free_space("/mnt/piStorage");
+  $dfused   = round($dffree - $dftotal);
   //hard disk for percentages
   $dptotal = round(@disk_total_space("/mnt/piStorage")/(1024*1024*1024),3); //Total
   $dpfree = round(@disk_free_space("/mnt/piStorage")/(1024*1024*1024),3); //Available
