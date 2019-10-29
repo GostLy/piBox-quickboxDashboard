@@ -20,7 +20,7 @@ if [[ ! $distribution =~ ("Debian"|"Ubuntu") ]]; then
  if [[ ! $distribution =~ ("Debian"|"Ubuntu"|"Raspbian") ]]; then
 ```
 
-After doing this you should elevate to root by typing "sudo su" and then running the automated install by typing "./setup.sh", install takes a while on the Raspberry Pi and does require some user interaction. Good luck!
+After doing this you should elevate to root by typing "sudo su" and then run the automated install by typing "./setup.sh". Be aware that the install takes a while on the Raspberry Pi and does require some user interaction. Good luck!
 
 #### Purpose of this repo
 
