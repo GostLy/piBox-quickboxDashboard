@@ -1,8 +1,26 @@
-# piBox quickbox-dashboard
+# piBox (Raspberry Pi 4 seedbox using the automation script from https://swizzin.ltd)
 
 #### Customized pages for the swizzin quickbox panel
 
-First of all I am using a Raspberry Pi 4 (4GB version) and I edited the swizzin setup.sh script to include Raspbian as an acceptable OS. The setup took about 50 minutes but ran with only a couple of minor errors that I was able to fix/clean up after the setup finished. I would've been surprised if it ran without problems but most of the programs I selected to install; installed and have been running without problem.
+First of all I am using a Raspberry Pi 4 (4GB version) as a seedbox running Raspbian Buster. So, I edited the swizzin setup.sh script to include Raspbian as an acceptable OS. The setup took about 50 minutes but ran with only a couple of minor errors that I was able to fix/clean up after the setup finished. For the most part the seedbox has been running pretty smoothly for over 1 week now.
+
+## If you would like to run the swizzin automation script on your Raspberry Pi (Raspbian OS) then you will need to do the following:
+### download the swizzin "setup.sh" file and edit "setup.sh":
+```
+sudo wget https://raw.githubusercontent.com/liaralabs/swizzin/master/setup.sh
+sudo chmod +x setup.sh
+sudo nano setup.sh
+```
+#### find the following line:
+```
+if [[ ! $distribution =~ ("Debian"|"Ubuntu") ]]; then
+```
+#### replace with the following:
+```
+ if [[ ! $distribution =~ ("Debian"|"Ubuntu"|"Raspbian") ]]; then
+```
+
+After doing this you should elevate to root by typing "sudo su" and then running the automated install by typing "./setup.sh", install takes a while on the Raspberry Pi and does require some user interaction. Good luck!
 
 #### Purpose of this repo
 
@@ -10,9 +28,9 @@ Since the Raspberry Pi runs the OS from an SD Card. The root/home directory is o
 
 I created a file: widgets/disk_datam.php which is an edited version of widgets/disk_data.php (only lines 69-74) to add the mounted storage device directory. (/mnt/piStorage)
 
-I then had to modify the box panel fix-disk command by adding "mnt" as an option which will then use my custom "widgets/disk_datam.php" file:
+I then had to modify the "box panel fix-disk" command by adding "mnt" as an option which will then use my custom "widgets/disk_datam.php" file:
 
-## "/usr/local/bin/swizzin/panel/fix-disk" file:
+### "/etc/swizzin/scripts/fix-disk" file:
 ```
 #!/bin/bash
 #Disk Widget Switcher mnt <->  root <-> home
