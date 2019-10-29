@@ -83,8 +83,8 @@ if (file_exists('/home/'.$username.'/.sessions/rtorrent.lock')) {
 
 ?>
 
-                  <p class="nomargin"><?php echo T('FREE'); ?>: <span style="font-weight: 700; position: absolute; left: 100px;"><?php echo "$dffree"; ?> <b>GB</b></span></p>
-                  <p class="nomargin"><?php echo T('USED'); ?>: <span style="font-weight: 700; position: absolute; left: 100px;"><?php echo "$dfused"; ?> <b>GB</b></span></p>
+                  <p class="nomargin"><?php echo T('FREE'); ?>: <span style="font-weight: 700; position: absolute; left: 100px;"><?php echo "FREE SPACE YO $dffree"; ?> <b>GB</b></span></p>
+                  <p class="nomargin"><?php echo T('USED'); ?>: <span style="font-weight: 700; position: absolute; left: 100px;"><?php echo "USED SPACE YO $dfused"; ?> <b>GB</b></span></p>
                   <p class="nomargin"><?php echo T('SIZE'); ?>: <span style="font-weight: 700; position: absolute; left: 100px;"><?=dataSize(disk_total_space("/mnt/piStorage"))?><?php //echo "$dftotal"; ?> <b>GB</b></span></p>
                   <div class="row">
                     <div class="col-sm-12">
