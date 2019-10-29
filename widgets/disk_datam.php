@@ -67,20 +67,17 @@ if (file_exists('/install/.quota.lock')) {
     exit();
   }
   //hard disk
-  $mntPathFile  = "/srv/panel/inc/diskStatus.cfg";
-  if (file_exists($mntPathFile)) {
-    $fc = 0;
-    $fh = fopen($mntPathFile,'r');
-    while ($line = fgets($fh)) {      
-      /*$expLine  = explode("=", $line);
-      if ($expLine[$fc] == "mntDevicePath") {
-        $mntPath  = $expLine[($fc+1)]
-      }*/
-      echo "line: ".$line." count: ".$fc."<br>";
-      $fc++;
+  $dsConfig  = "/srv/panel/inc/diskStatus.cfg";
+  if (@file_exists($dsConfig)) {
+    $fh     = file_get_contents($dsConfig);
+    $fLine  = explode("=", $fh);
+    for($i=0; $i<substr_count($fh, "="); $i++) {
+        if ($fLine["$i"] == "mntDevicePath") {
+          $fN       = round($i + 1);
+          $mntPath  = $fLine["$fN"]
+        }        
+      }
     }
-    fclose($fh);
-  }
   echo "mntPath: ".$mntPath;
   $dftotal  = number_format(round(@disk_total_space($mntPath)/(1024*1024*1024),3)); //Total
   $dffree   = number_format(round(@disk_free_space($mntPath)/(1024*1024*1024),3)); //Available
