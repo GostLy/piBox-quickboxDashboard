@@ -75,7 +75,7 @@ if (file_exists('/install/.quota.lock')) {
     for($i=0; $i<$eqCnt; $i++) {
         if ($fLine[$i] == "mntDevicePath") {
           $fN       = round($i + 1);
-          $mntPath  = $fLine[$fN]
+          $mntPath  = $fLine[$fN];
         }        
       }
   }
