@@ -715,3 +715,15 @@ function iclamp( $val, $min = 0, $max = XMLRPC_MAX_I8 )
 		$val = $max;
 	return( ((PHP_INT_SIZE>4) || ( ($val>=PHP_INT_MIN) && ($val<=PHP_INT_MAX) )) ? intval($val) : $val );
 }
+
+function dataSize($Bytes)
+{
+$Type=array("", "kilo", "mega", "giga", "tera");
+$counter=0;
+while($Bytes>=1024)
+{
+$Bytes/=1024;
+$counter++;
+}
+return("".$Bytes." ".$Type[$counter]."bytes");
+}
