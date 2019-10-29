@@ -68,6 +68,7 @@ if (file_exists('/install/.quota.lock')) {
   }
   //hard disk
   $mntPath  = $_GET["mntPath"];
+  echo "mntPath: ".$mntPath;
   $dftotal  = number_format(round(@disk_total_space($mntPath)/(1024*1024*1024),3)); //Total
   $dffree   = number_format(round(@disk_free_space($mntPath)/(1024*1024*1024),3)); //Available
   $dfused   = number_format(round(@disk_total_space($mntPath)/(1024*1024*1024),3)-round(@disk_free_space($mntPath)/(1024*1024*1024),3)); //used
@@ -90,8 +91,7 @@ if (file_exists('/home/'.$username.'/.sessions/rtorrent.lock')) {
 
                   <p class="nomargin"><?php echo T('FREE'); ?>: <span style="font-weight: 700; position: absolute; left: 100px;"><?php echo "$dffree"; ?> <b>GB</b></span></p>
                   <p class="nomargin"><?php echo T('USED'); ?>: <span style="font-weight: 700; position: absolute; left: 100px;"><?php echo "$dfused"; ?> <b>GB</b></span></p>
-                  <p class="nomargin"><?php echo T('SIZE'); ?>: <span style="font-weight: 700; position: absolute; left: 100px;"><?php echo "$dftotal"; ?> <b>GB</b></span></p>
-                  <p class="nomargin"><?php echo T('SIZE'); ?>: <span style="font-weight: 700; position: absolute; left: 100px;"><?php echo "mount path: $mntPath"; ?> <b>GB</b></span></p>
+                  <p class="nomargin"><?php echo T('SIZE'); ?>: <span style="font-weight: 700; position: absolute; left: 100px;"><?php echo "$dftotal"; ?> <b>GB</b></span></p>                  
                   <div class="row">
                     <div class="col-sm-12">
                       <!--h4 class="panel-title text-success">Disk Space</h4-->
