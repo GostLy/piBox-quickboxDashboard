@@ -72,10 +72,11 @@ if (file_exists('/install/.quota.lock')) {
     $fc = 0;
     $fh = fopen($mntPathFile,'r');
     while ($line = fgets($fh)) {      
-      $expLine  = explode("=", $line);
+      /*$expLine  = explode("=", $line);
       if ($expLine[$fc] == "mntDevicePath") {
         $mntPath  = $expLine[($fc+1)]
-      }
+      }*/
+      echo "line: ".$line." count: ".$fc."<br>";
       $fc++;
     }
     fclose($fh);
