@@ -83,12 +83,12 @@ if (file_exists('/install/.quota.lock')) {
       }
   }
   $Gbytes   = (1024*1024*1024);
-  //$mntPath  = "\"".trim($fV[$mntPathAN])."\"";
-  //$mntPath  = stripslashes($mntPath);
-  $mntPath    = trim($fV[$mntPathAN]);
+  $mntPath  = "\"".trim($fV[$mntPathAN])."\"";
+  $mntPath  = stripslashes($mntPath);
+  //$mntPath    = trim($fV[$mntPathAN]);
   echo "mntPath: ".$mntPath."<br>Gbytes: ".$Gbytes."<br>";
   
-  $dftotal  = number_format(round(@disk_total_space($mntPath)/($Gbytes),3)); //Total
+  $dftotal  = number_format(round(@disk_total_space("$mntPath")/($Gbytes),3)); //Total
   echo "disk total: ".disk_total_space($mntPath)."<br>";
   $dffree   = number_format(round(@disk_free_space($mntPath)/($Gbytes),3)); //Available
   echo "disk free: ".disk_free_space($mntPath)."<br>";
