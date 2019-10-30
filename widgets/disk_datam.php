@@ -83,7 +83,8 @@ if (file_exists('/install/.quota.lock')) {
       }
   }
   $Gbytes   = (1024*1024*1024);
-  $mntPath  = $fV[$mntPathAN];
+  $mntPath  = "\"".$fV[$mntPathAN]."\"";
+  $mntPath  = stripslashes($mntPath);
   settype($mntPath, "string");
   echo "mntPath: ".$mntPath."<br>Gbytes: ".$Gbytes."<br>";
   
