@@ -76,23 +76,25 @@ if (file_exists('/install/.quota.lock')) {
       $fN = round($i + 1);
       $fV = $fLine[$fN];
         if ($fLine[$i] == "mntDevicePath") {
-          $mntPath = $fV;
+          $mntPath = settype($fV, string);
         }        
       }
   }
+  $Gbytes = (1024*1024*1024);
+  $Gbytes = settype($Gbytes, float);
   echo "mntPath: ".$mntPath."<br>";
-  $dftotal  = number_format(round(@disk_total_space($mntPath)/(1024*1024*1024),3)); //Total
+  $dftotal  = number_format(round(@disk_total_space($mntPath)/($Gbytes),3)); //Total
   echo "total: ".$dftotal."<br>";
-  $dffree   = number_format(round(@disk_free_space($mntPath)/(1024*1024*1024),3)); //Available
+  $dffree   = number_format(round(@disk_free_space($mntPath)/($Gbytes),3)); //Available
   echo "free: ".$dffree."<br>";
-  $dfused   = number_format(round(@disk_total_space($mntPath)/(1024*1024*1024),3)-round(@disk_free_space($mntPath)/(1024*1024*1024),3)); //used
+  $dfused   = number_format(round(@disk_total_space($mntPath)/($Gbytes),3)-round(@disk_free_space($mntPath)/($Gbytes),3)); //used
   echo "used: ".$dfused."<br>";
   //$dftotal  = @disk_total_space("/mnt/piStorage");
   //$dffree   = @disk_free_space("/mnt/piStorage");
   //$dfused   = round($dffree - $dftotal);
   //hard disk for percentages
-  $dptotal = round(@disk_total_space($mntPath)/(1024*1024*1024),3); //Total
-  $dpfree = round(@disk_free_space($mntPath)/(1024*1024*1024),3); //Available
+  $dptotal = round(@disk_total_space($mntPath)/($Gbytes),3); //Total
+  $dpfree = round(@disk_free_space($mntPath)/($Gbytes),3); //Available
   $dpused = $dptotal-$dpfree; //used
   $perused = (floatval($dptotal)!=0)?round($dpused/$dptotal*100,2):0;
   //$perused = sprintf('%1.0f', $bytesused / $bytestotal * 100);
