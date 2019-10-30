@@ -71,10 +71,12 @@ if (file_exists('/install/.quota.lock')) {
   if (@file_exists($dsConfig)) {
     $fh     = @file_get_contents($dsConfig);
     $fLine  = explode("=", $fh);
+    $fV     = array();
     $eqCnt  = substr_count($fh, "=");
-    for($i=0; $i<$eqCnt; $i++) {
+    
+    for($i=0; $i<=$eqCnt; $i++) {
       $fN = round($i + 1);
-      $fV = (array) $fLine[$fN];
+      $fV[] = $fLine[$i];
         if ($fLine[$i] == "mntDevicePath") {
           $mntPathAN  = $fN;          
         }        
