@@ -88,11 +88,11 @@ if (file_exists('/install/.quota.lock')) {
   echo "mntPath: ".$mntPath."<br>Gbytes: ".$Gbytes."<br>";
   
   $dftotal  = number_format(round(@disk_total_space($mntPath)/($Gbytes),3)); //Total
-  echo "total: ".$dftotal."<br>";
+  echo "disk total: ".disk_total_space($mntPath)."<br>";
   $dffree   = number_format(round(@disk_free_space($mntPath)/($Gbytes),3)); //Available
-  echo "free: ".$dffree."<br>";
+  echo "disk free: ".disk_free_space($mntPath)."<br>";
   $dfused   = number_format(round(@disk_total_space($mntPath)/($Gbytes),3)-round(@disk_free_space($mntPath)/($Gbytes),3)); //used
-  echo "used: ".$dfused."<br>";
+  echo "disk used: ".disk_free_space($mntPath) - disk_total_space($mntPath)."<br>";
   //$dftotal  = @disk_total_space("/mnt/piStorage");
   //$dffree   = @disk_free_space("/mnt/piStorage");
   //$dfused   = round($dffree - $dftotal);
