@@ -39,10 +39,10 @@ function _panel () {
     echo "fix-disk is the only acceptable panel argument at this time"
     exit 1
   fi
-  ***/usr/local/bin/swizzin/panel/fix-disk $3 $4***
+  /usr/local/bin/swizzin/panel/fix-disk $3 $4
 }
 ```
-Secondly we need to modify the fix-disk command to add "mnt /devicePath/" as an available option.
+Next we need to modify the fix-disk command to add "mnt /devicePath/" as an available option.
 
 #### Edit "/etc/swizzin/scripts/panel/fix-disk" file and replace all the text with the following:
 ```
