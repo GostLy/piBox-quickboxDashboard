@@ -85,16 +85,17 @@ if (file_exists('/install/.quota.lock')) {
       $mntPath  = trim($fV[$mntPathAN]);
   }  
   $G_bytes   = (1024*1024*1024);  
+  
+  $dstotal  = round(@disk_total_space($mntPath)/($G_bytes),3);
+  $dsfree   = round(@disk_free_space($mntPath)/($G_bytes),3);
 
-  $dftotal  = number_format(round(@disk_total_space($mntPath)/($G_bytes),3)); //Total
-  $dffree   = number_format(round(@disk_free_space($mntPath)/($G_bytes),3)); //Available
-  $dfused   = number_format(round(@disk_total_space($mntPath)/($G_bytes),3)-round(@disk_free_space($mntPath)/($G_bytes),3)); //used
+  $dftotal  = number_format($dstotal); //Total
+  $dffree   = number_format($dsfree); //Available
+  $dfused   = number_format($dstotal-$dsfree); //used
   
   //hard disk for percentages
-  $dptotal = round(@disk_total_space($mntPath)/($Gbytes),3); //Total
-  $dpfree = round(@disk_free_space($mntPath)/($Gbytes),3); //Available
-  $dpused = $dptotal-$dpfree; //used
-  $perused = (floatval($dptotal)!=0)?round($dpused/$dptotal*100,2):0;
+  $dpused = ($dstotal-$dsfree); //used
+  $perused = (floatval($dstotal)!=0)?round($dpused/$dstotal*100,2):0;
   //$perused = sprintf('%1.0f', $bytesused / $bytestotal * 100);
 }
 
