@@ -1,8 +1,8 @@
 ## piBox (Raspberry Pi 4 seedbox using the automation script from https://swizzin.ltd)
 
-#### Customized pages for the swizzin quickbox panel
+#### Add mounted device as option for disk status displayed on the swizzin web panel
 
-First of all I am using a Raspberry Pi 4 (4GB version) as a seedbox running Raspbian Buster. So, I edited the swizzin setup.sh script to include Raspbian as an acceptable OS. The setup took about 50 minutes but ran with only a couple of minor errors that I was able to fix/clean up after the setup finished. For the most part the seedbox has been running pretty smoothly for over 1 week now.
+First of all I am using a Raspberry Pi 4 (4GB version) as a seedbox running Raspbian Buster. So, I edited the swizzin setup.sh script to include Raspbian as an acceptable OS. The setup took about 50 minutes and ran with only a couple of minor errors. Nothing that broke the apps from working, at least not any of the app options that I chose.
 
 ## If you would like to run the swizzin automation script on your Raspberry Pi (Raspbian OS) then you will need to do the following:
 #### download the swizzin "setup.sh" file and edit "setup.sh":
@@ -22,13 +22,15 @@ if [[ ! $distribution =~ ("Debian"|"Ubuntu") ]]; then
 
 After doing this you should elevate to root by typing "sudo su" and then run the automated install by typing "./setup.sh". Be aware that the install takes a while on the Raspberry Pi and does require some user interaction. Good luck!
 
-### Purpose of this repo
+### Purpose of this repository
 
-Since the Raspberry Pi runs the OS from an SD Card. The root/home directory is on the SD card, so the quickbox panel shows the size of the SD card. Although I have a storage device mounted that holds all of my torrent files and downloads, so I would like to have the panel tell me the disk space of the mounted device. 
+For the most part this is a clone of https://github.com/liaralabs/quickbox_dashboard which is the web UI for swizzin. I may decide to do more customization to the web panel but as of right now I have only added the option for a mounted device to be shown in the Disk Status portion of the swizzin web UI.
 
-I created a file: widgets/disk_datam.php which is an edited version of widgets/disk_data.php (only lines 69-74) to add the mounted storage device directory. (/mnt/piStorage)
+Now, if you're using a Raspberry Pi like I am then you're aware that the Pi runs the OS from an SD Card. The root/home directory is on the SD card, so the swizzin panel shows the size of directories/partitions that are only on the SD card. I made this because I wanted the disk status to show me an external storage device that I use for my seedbox and I made it so that anyone who wanted to see their mounted device could use it for the same purpose.
 
-I then had to modify the "box panel fix-disk" command by adding "mnt" as an option which will then use my custom "widgets/disk_datam.php" file:
+I created a file: widgets/disk_datam.php which is the file that is to be remotely downloaded by the fix-disk command that will essentially fix the disk status in the web ui to show Total/Free/Used disk space of a mounted device.
+
+So, first we have to modify the fix-disk command to add "mnt" as an available option.
 
 #### "/etc/swizzin/scripts/fix-disk" file:
 ```
@@ -64,9 +66,11 @@ service nginx reload
 /usr/local/bin/swizzin/php-fpm-cli -r 'opcache_reset();'
 ```
 
-#### After making the above change to fix-disk run the command like this:
+#### After making the above change to fix-disk, elevate to root by typing 'sudo su'
+#### Then run the box command like this:
 ```
-box panel fix-disk mnt /mnt/NAMEofYOURmountedDEVICEdirectory
+box panel fix-disk mnt /mnt/piStorage
 ```
+#### "/mnt/piStorage" is where you should replace with your mounted device folder
 
 ### Now from the swizzin web panel it should show you the disk status of your mounted device!
