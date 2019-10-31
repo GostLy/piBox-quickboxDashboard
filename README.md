@@ -30,7 +30,19 @@ Now, if you're using a Raspberry Pi like I am then you're aware that the Pi runs
 
 I created a file: widgets/disk_datam.php which is the file that is to be remotely downloaded by the fix-disk command that will essentially fix the disk status in the web ui to show Total/Free/Used disk space of a mounted device.
 
-So, first we have to modify the fix-disk command to add "mnt" as an available option.
+So, first we have to modify the box command so that it will read another variable.
+
+#### Edit "/etc/swizzin/scripts/box" file so that your panel function looks like this:
+```
+function _panel () {
+  if [[ $2 != "fix-disk" ]]; then
+    echo "fix-disk is the only acceptable panel argument at this time"
+    exit 1
+  fi
+  ***/usr/local/bin/swizzin/panel/fix-disk $3 $4***
+}
+```
+Secondly we need to modify the fix-disk command to add "mnt /devicePath/" as an available option.
 
 #### Edit "/etc/swizzin/scripts/panel/fix-disk" file and replace all the text with the following:
 ```
@@ -66,7 +78,7 @@ service nginx reload
 /usr/local/bin/swizzin/php-fpm-cli -r 'opcache_reset();'
 ```
 
-#### After making the above change to fix-disk, elevate to root by typing 'sudo su' in a terminal
+#### After making the above change to box and fix-disk, elevate to root by typing 'sudo su' in a terminal
 #### Then run the box command like this:
 ```
 box panel fix-disk mnt /mnt/piStorage
