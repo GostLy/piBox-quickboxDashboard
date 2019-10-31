@@ -32,7 +32,7 @@ I created a file: widgets/disk_datam.php which is the file that is to be remotel
 
 So, first we have to modify the fix-disk command to add "mnt" as an available option.
 
-#### "/etc/swizzin/scripts/fix-disk" file:
+#### Edit "/etc/swizzin/scripts/fix-disk" file and replace all the text with the following:
 ```
 #!/bin/bash
 #Disk Widget Switcher mnt <->  root <-> home
@@ -66,7 +66,7 @@ service nginx reload
 /usr/local/bin/swizzin/php-fpm-cli -r 'opcache_reset();'
 ```
 
-#### After making the above change to fix-disk, elevate to root by typing 'sudo su'
+#### After making the above change to fix-disk, elevate to root by typing 'sudo su' in a terminal
 #### Then run the box command like this:
 ```
 box panel fix-disk mnt /mnt/piStorage
