@@ -83,7 +83,7 @@ if (file_exists('/install/.quota.lock')) {
       }
   }
   static $Gbytes   = (1024*1024*1024);
-  $mntPath  = '.'.trim($fV[$mntPathAN]).'/';
+  $mntPath  = trim($fV[$mntPathAN]).'/';
   //$mntPath  = stripslashes($mntPath);
   //$mntPath    = trim($fV[$mntPathAN]);
   //$mntPath  = "/mnt/piStorage";
