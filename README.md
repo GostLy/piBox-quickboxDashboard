@@ -32,7 +32,7 @@ I created a file: widgets/disk_datam.php which is the file that is to be remotel
 
 So, first we have to modify the fix-disk command to add "mnt" as an available option.
 
-#### Edit "/etc/swizzin/scripts/fix-disk" file and replace all the text with the following:
+#### Edit "/etc/swizzin/scripts/panel/fix-disk" file and replace all the text with the following:
 ```
 #!/bin/bash
 #Disk Widget Switcher mnt <->  root <-> home
