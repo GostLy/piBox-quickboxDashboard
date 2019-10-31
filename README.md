@@ -1,4 +1,4 @@
-# piBox (Raspberry Pi 4 seedbox using the automation script from https://swizzin.ltd)
+## piBox (Raspberry Pi 4 seedbox using the automation script from https://swizzin.ltd)
 
 #### Customized pages for the swizzin quickbox panel
 
