@@ -67,36 +67,36 @@ if (file_exists('/install/.quota.lock')) {
     exit();
   }
   //hard disk
+  $dsConfig  = "/srv/panel/inc/diskStatus.cfg"; // Disk status config file that holds the mounted device path information
   
-  $dsConfig  = "/srv/panel/inc/diskStatus.cfg";
   if (@file_exists($dsConfig)) {
-    $fh         = @file_get_contents($dsConfig);
-    $fLine      = explode("=", $fh);
-    static $fV  = array();
-    $eqCnt      = substr_count($fh, "=");
+    $fh         = @file_get_contents($dsConfig); // Retrieve text content of config file
+    $fLine      = explode("=", $fh); // Separates each line to retrieve string and value
+    static $fV  = array(); // Create the array that holds each variable of the config file
+    $eqCnt      = substr_count($fh, "="); // Count how many settings are defined in the config file
     
+    // Go through each variable of the config file
     for($i=0; $i<=$eqCnt; $i++) {
-      $fN = round($i + 1);
-      $fV[] = $fLine[$i];
+      $fN = ($i + 1); // This number will be used for the value of a string within the array
+      $fV[] = $fLine[$i]; // Add the variable to the array
         if ($fLine[$i] == "mntDevicePath") {
-          $mntPathAN  = $fN;          
+          $mntPathAN  = $fN; // This saves the array number for the value of the string: mntDevicePath
         }        
       }
-      $mntPath  = trim($fV[$mntPathAN]);
+      $mntPath  = trim($fV[$mntPathAN]); // Define $mntPath and trim the spaces out of the mounted device path value
   }  
-  $G_bytes   = (1024*1024*1024);  
+  $G_bytes   = (1024*1024*1024);  // 1 GB in bytes
   
-  $dstotal  = round(@disk_total_space($mntPath)/($G_bytes),3);
-  $dsfree   = round(@disk_free_space($mntPath)/($G_bytes),3);
+  $dstotal  = round(@disk_total_space($mntPath)/($G_bytes),3); // Total disk space available
+  $dsfree   = round(@disk_free_space($mntPath)/($G_bytes),3); // Free disk space available
 
-  $dftotal  = number_format($dstotal); //Total
-  $dffree   = number_format($dsfree); //Available
-  $dfused   = number_format($dstotal-$dsfree); //used
+  $dftotal  = number_format($dstotal); // Total space converted
+  $dffree   = number_format($dsfree); // Available space converted
+  $dfused   = number_format($dstotal-$dsfree); // Used space converted
   
   //hard disk for percentages
-  $dpused = ($dstotal-$dsfree); //used
-  $perused = (floatval($dstotal)!=0)?round($dpused/$dstotal*100,2):0;
-  //$perused = sprintf('%1.0f', $bytesused / $bytestotal * 100);
+  $dpused = ($dstotal-$dsfree); // Used space raw format
+  $perused = (floatval($dstotal)!=0)?round($dpused/$dstotal*100,2):0; // Percentage of used disk space
 }
 
 if (file_exists('/home/'.$username.'/.sessions/rtorrent.lock')) {
