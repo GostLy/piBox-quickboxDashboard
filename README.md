@@ -12,11 +12,11 @@ sudo chmod +x setup.sh
 sudo nano setup.sh
 ```
 #### find the following line:
-```
+```bash
 if [[ ! $distribution =~ ("Debian"|"Ubuntu") ]]; then
 ```
 #### replace with the following:
-```
+```bash
  if [[ ! $distribution =~ ("Debian"|"Ubuntu"|"Raspbian") ]]; then
 ```
 
@@ -33,7 +33,7 @@ I created a file: widgets/disk_datam.php which is the file that is to be remotel
 So, first we have to modify the box command so that it will read another variable.
 
 #### Edit "/etc/swizzin/scripts/box" file so that your panel function looks like this:
-```
+```bash
 function _panel () {
   if [[ $2 != "fix-disk" ]]; then
     echo "fix-disk is the only acceptable panel argument at this time"
@@ -45,7 +45,7 @@ function _panel () {
 Next we need to modify the fix-disk command to add "mnt /devicePath/" as an available option.
 
 #### Edit "/etc/swizzin/scripts/panel/fix-disk" file and replace all the text with the following:
-```
+```bash
 #!/bin/bash
 #Disk Widget Switcher mnt <->  root <-> home
 if [[ -z $1 ]]; then
@@ -83,6 +83,6 @@ service nginx reload
 ```
 box panel fix-disk mnt /mnt/piStorage
 ```
-#### "/mnt/piStorage" is where you should replace with your mounted device folder
+#### "/mnt/piStorage" should be replaced with your mounted device folder
 
-### Now from the swizzin web panel it should show you the disk status of your mounted device!
+### Now if you did everything right then the swizzin web panel should show you the disk status of your mounted device!
